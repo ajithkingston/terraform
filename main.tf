@@ -61,17 +61,3 @@ resource "azurerm_storage_container" "storagecontainer" {
   #   costcentre = "hands-on"
   # }
 }
-
-resource "azurerm_storage_blob" "storageblob" {
-  name                   = "mytfstatefile"
-  storage_account_name   = azurerm_storage_account.storageaccount.name
-  storage_container_name = azurerm_storage_container.storagecontainer.name
-  type                   = "Block"
-  source                 = "terraform.tfstate"
-
-  #   tags = {
-  #   owner      = "Ajith"
-  #   env        = "dev"
-  #   costcentre = "hands-on"
-  # }
-}
