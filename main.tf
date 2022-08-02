@@ -53,7 +53,7 @@ resource "azurerm_storage_account" "storageaccount" {
 resource "azurerm_storage_container" "storagecontainer" {
   name                  = "mytfstatestoragecontainer"
   storage_account_name  = azurerm_storage_account.storageaccount.name
-  container_access_type = "blob"
+  container_access_type = "private"
 
   #   tags = {
   #   owner      = "Ajith"
