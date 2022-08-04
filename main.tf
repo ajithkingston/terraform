@@ -11,7 +11,11 @@ terraform {
 }
 
 provider "azurerm" {
-  features {}
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = false
+    }
+  }
 }
 
 resource "azurerm_resource_group" "terraform-rg" {
@@ -36,6 +40,9 @@ resource "azurerm_resource_group" "tfstate-rg" {
   }
 }
 
+
+
+
 resource "azurerm_storage_account" "storageaccount" {
   name                     = "mytfstatestorageaccount"
   resource_group_name      = azurerm_resource_group.tfstate-rg.name
@@ -55,9 +62,41 @@ resource "azurerm_storage_container" "storagecontainer" {
   storage_account_name  = azurerm_storage_account.storageaccount.name
   container_access_type = "private"
 
-  #   tags = {
-  #   owner      = "Ajith"
-  #   env        = "dev"
-  #   costcentre = "hands-on"
-  # }
+}
+
+resource "azurerm_resource_group" "JavaSpringSampleDeploy-RG" {
+  name     = "JavaSpringSampleDeploy-RG"
+  location = "southeastasia"
+
+  tags = {
+    owner      = "Ajith"
+    env        = "dev"
+    costcentre = "hands-on"
+  }
+}
+
+resource "azurerm_service_plan" "azurermserviceplan" {
+  name                = "JavaSpringSampleDeployServicePlan"
+  location            = "East US"
+  resource_group_name = "JavaSpringSampleDeploy-RG"
+  os_type             = "Windows"
+  sku_name            = "B1"
+
+  depends_on = [
+    azurerm_resource_group.JavaSpringSampleDeploy-RG
+  ]
+}
+
+resource "azurerm_windows_web_app" "azureappservice" {
+  name                = "JavaSpringSampleDeploy"
+  location            = "East US"
+  resource_group_name = "JavaSpringSampleDeploy-RG"
+  service_plan_id     = azurerm_service_plan.azurermserviceplan.id
+
+  site_config {}
+
+  depends_on = [
+    azurerm_resource_group.JavaSpringSampleDeploy-RG
+  ]
+
 }
