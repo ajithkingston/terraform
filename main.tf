@@ -66,7 +66,7 @@ resource "azurerm_storage_container" "storagecontainer" {
 
 resource "azurerm_resource_group" "JavaSpringSampleDeploy-RG" {
   name     = "JavaSpringSampleDeploy-RG"
-  location = "southeastasia"
+  location = "East US"
 
   tags = {
     owner      = "Ajith"
@@ -79,21 +79,25 @@ resource "azurerm_service_plan" "azurermserviceplan" {
   name                = "JavaSpringSampleDeployServicePlan"
   location            = "East US"
   resource_group_name = "JavaSpringSampleDeploy-RG"
-  os_type             = "Windows"
-  sku_name            = "B1"
+  os_type             = "Linux"
+  sku_name            = "F1"
 
   depends_on = [
     azurerm_resource_group.JavaSpringSampleDeploy-RG
   ]
 }
 
-resource "azurerm_windows_web_app" "azureappservice" {
+resource "azurerm_linux_web_app" "azureappservice" {
   name                = "JavaSpringSampleDeploy"
   location            = "East US"
   resource_group_name = "JavaSpringSampleDeploy-RG"
   service_plan_id     = azurerm_service_plan.azurermserviceplan.id
 
-  site_config {}
+  site_config {
+    use_32_bit_worker = true
+    always_on = false
+    app_command_line = "java -jar /home/site/wwwroot/spring-azure-demo-0.0.1-SNAPSHOT.jar"
+  }
 
   depends_on = [
     azurerm_resource_group.JavaSpringSampleDeploy-RG
