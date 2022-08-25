@@ -18,51 +18,51 @@ provider "azurerm" {
   }
 }
 
-resource "azurerm_resource_group" "terraform-rg" {
-  name     = "Terraform-RG"
-  location = "southindia"
-  tags = {
-    owner      = "Ajith"
-    env        = "dev"
-    costcentre = "hands-on"
-  }
+# resource "azurerm_resource_group" "terraform-rg" {
+#   name     = "Terraform-RG"
+#   location = "southindia"
+#   tags = {
+#     owner      = "Ajith"
+#     env        = "dev"
+#     costcentre = "hands-on"
+#   }
 
-}
+# }
 
-resource "azurerm_resource_group" "tfstate-rg" {
-  name     = "TFSTATE-RG"
-  location = "southindia"
+# resource "azurerm_resource_group" "tfstate-rg" {
+#   name     = "TFSTATE-RG"
+#   location = "southindia"
 
-  tags = {
-    owner      = "Ajith"
-    env        = "dev"
-    costcentre = "hands-on"
-  }
-}
-
-
+#   tags = {
+#     owner      = "Ajith"
+#     env        = "dev"
+#     costcentre = "hands-on"
+#   }
+# }
 
 
-resource "azurerm_storage_account" "storageaccount" {
-  name                     = "mytfstatestorageaccount"
-  resource_group_name      = azurerm_resource_group.tfstate-rg.name
-  location                 = azurerm_resource_group.tfstate-rg.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
 
-  tags = {
-    owner      = "Ajith"
-    env        = "dev"
-    costcentre = "hands-on"
-  }
-}
 
-resource "azurerm_storage_container" "storagecontainer" {
-  name                  = "mytfstatestoragecontainer"
-  storage_account_name  = azurerm_storage_account.storageaccount.name
-  container_access_type = "private"
+# resource "azurerm_storage_account" "storageaccount" {
+#   name                     = "mytfstatestorageaccount"
+#   resource_group_name      = azurerm_resource_group.tfstate-rg.name
+#   location                 = azurerm_resource_group.tfstate-rg.location
+#   account_tier             = "Standard"
+#   account_replication_type = "LRS"
 
-}
+#   tags = {
+#     owner      = "Ajith"
+#     env        = "dev"
+#     costcentre = "hands-on"
+#   }
+# }
+
+# resource "azurerm_storage_container" "storagecontainer" {
+#   name                  = "mytfstatestoragecontainer"
+#   storage_account_name  = azurerm_storage_account.storageaccount.name
+#   container_access_type = "private"
+
+# }
 
 resource "azurerm_resource_group" "JavaSpringSampleDeploy-RG" {
   name     = "JavaSpringSampleDeploy-RG"
