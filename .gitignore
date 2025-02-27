@@ -5,3 +5,4 @@ terraform.tfstate
 terraform.tfstate.backup
 id_rsa.pub
 id_rsa.pub.pub
+tf_plan
