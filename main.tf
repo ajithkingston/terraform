@@ -29,10 +29,10 @@ resource "azurerm_resource_group" "terraform-rg" {
 
 }
 
-# Configure the Azure provider
-provider "azurerm" {
-  features {}
-}
+# # Configure the Azure provider
+# provider "azurerm" {
+#   features {}
+# }
 
 # Create a resource group
 resource "azurerm_resource_group" "example" {
