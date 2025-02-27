@@ -116,7 +116,7 @@ resource "azurerm_linux_virtual_machine" "example" {
 
   admin_ssh_key {
     username   = "adminuser"
-    public_key = file("C:\Users\Ajith Kingston\Documents\GitHub\terraform\id_rsa.pub") # Replace with your public key path
+    public_key = file("C:/Users/Ajith Kingston/Documents/GitHub/terraform/id_rsa.pub") # Replace with your public key path
   }
 
   os_disk {
